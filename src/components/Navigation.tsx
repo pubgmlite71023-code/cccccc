@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Home, Trophy, Calendar, BookOpen } from 'lucide-react';
 
 interface NavigationProps {
@@ -7,6 +7,28 @@ interface NavigationProps {
 }
 
 export const Navigation: React.FC<NavigationProps> = ({ currentPage, onNavigate }) => {
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down and past 100px
+        setIsVisible(false);
+      } else {
+        // Scrolling up
+        setIsVisible(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
   const navItems = [
     {
       id: 'main',
@@ -32,7 +54,9 @@ export const Navigation: React.FC<NavigationProps> = ({ currentPage, onNavigate 
   ];
 
   return (
-    <nav className="bg-white/95 backdrop-blur-md shadow-xl border-b border-gray-200 sticky top-0 z-50">
+    <nav className={`bg-white/95 backdrop-blur-md shadow-xl border-b border-gray-200 sticky top-0 z-50 transition-transform duration-300 ${
+      isVisible ? 'translate-y-0' : '-translate-y-full'
+    }`}>
       <div className="container mx-auto px-4 py-4">
         {/* Logo/Title section */}
         <div className="flex items-center justify-between mb-4">

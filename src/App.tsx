@@ -31,6 +31,8 @@ function App() {
 
   const handleFullNavigation = (page: 'main' | 'results' | 'schedule') => {
     setCurrentPage(page);
+    // Scroll to top when navigating
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     // Reset search when navigating
     if (page !== 'results') {
       setSearchResult(null);

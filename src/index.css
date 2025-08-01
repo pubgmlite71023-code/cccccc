@@ -333,6 +333,13 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Ensure smooth transitions for navigation */
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
 /* Custom scrollbar for webkit browsers */
 ::-webkit-scrollbar {
   width: 8px;
