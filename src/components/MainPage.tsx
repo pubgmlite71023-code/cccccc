@@ -40,8 +40,7 @@ export const MainPage: React.FC<MainPageProps> = ({ onNavigate }) => {
         preload="auto"
         style={{ display: 'none' }}
       >
-        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav" />
-        <source src="https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-one/zapsplat_multimedia_alert_chime_warm_wooden_001_44421.mp3" type="audio/mpeg" />
+        <source src="https://www.youtube.com/watch?v=40l3DfPUYkM" type="audio/mpeg" />
         {/* Fallback for browsers that don't support the audio element */}
       </audio>
 

@@ -26,17 +26,30 @@ export const ExamSchedule: React.FC = () => {
   };
 
   // تحويل التاريخ الميلادي إلى هجري (تقريبي)
-  const toHijriDate = (gregorianDate: Date) => {
-    // تقريب بسيط للتحويل الهجري (الفرق حوالي 578-579 سنة)
-    const hijriYear = gregorianDate.getFullYear() - 578;
-    const hijriMonths = [
-      'محرم', 'صفر', 'ربيع الأول', 'ربيع الثاني', 'جمادى الأولى', 'جمادى الثانية',
-      'رجب', 'شعبان', 'رمضان', 'شوال', 'ذو القعدة', 'ذو الحجة'
-    ];
-    const hijriMonth = hijriMonths[gregorianDate.getMonth()];
-    const hijriDay = gregorianDate.getDate();
+  const getCorrespondingDates = (baseDate: Date, dayOffset: number = 0) => {
+    const targetDate = new Date(baseDate);
+    targetDate.setDate(baseDate.getDate() + dayOffset);
     
-    return `${hijriDay} ${hijriMonth} ${hijriYear} هـ`;
+    // التواريخ الهجرية المحددة مسبقاً
+    const hijriDates = [
+      'الجمعة، ١٤ صفر ١٤٤٧ هـ',
+      'السبت، ١٥ صفر ١٤٤٧ هـ', 
+      'الجمعة، ٢١ صفر ١٤٤٧ هـ',
+      'السبت، ٢٢ صفر ١٤٤٧ هـ'
+    ];
+    
+    // التواريخ الميلادية المقابلة
+    const gregorianDates = [
+      'الجمعة، ١٦ أغسطس ٢٠٢٤ م',
+      'السبت، ١٧ أغسطس ٢٠٢٤ م',
+      'الجمعة، ٢٣ أغسطس ٢٠٢٤ م', 
+      'السبت، ٢٤ أغسطس ٢٠٢٤ م'
+    ];
+    
+    return {
+      hijri: hijriDates[dayOffset] || hijriDates[0],
+      gregorian: gregorianDates[dayOffset] || gregorianDates[0]
+    };
   };
 
   const nextFriday = getNextFriday();
@@ -123,19 +136,9 @@ export const ExamSchedule: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const formatDate = (date: Date) => {
-    const gregorianDate = date.toLocaleDateString('ar-SA', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-    const hijriDate = toHijriDate(date);
-    
-    return {
-      gregorian: gregorianDate,
-      hijri: hijriDate
-    };
+  const formatDate = (date: Date, eventIndex: number) => {
+    const dates = getCorrespondingDates(date, eventIndex);
+    return dates;
   };
 
   const getUrgencyClass = (eventId: number) => {
@@ -192,8 +195,8 @@ export const ExamSchedule: React.FC = () => {
                         <div>
                           <h3 className="text-2xl font-bold">{event.title}</h3>
                           <div className="text-white/90">
-                            <p className="mb-1">{event.day} - {formatDate(event.date).gregorian}</p>
-                            <p className="text-sm text-white/70">{formatDate(event.date).hijri}</p>
+                            <p className="mb-1">{formatDate(event.date, index).hijri}</p>
+                            <p className="text-sm text-white/70">{formatDate(event.date, index).gregorian}</p>
                           </div>
                         </div>
                       </div>
