@@ -25,6 +25,20 @@ export const ExamSchedule: React.FC = () => {
     return nextFriday;
   };
 
+  // تحويل التاريخ الميلادي إلى هجري (تقريبي)
+  const toHijriDate = (gregorianDate: Date) => {
+    // تقريب بسيط للتحويل الهجري (الفرق حوالي 578-579 سنة)
+    const hijriYear = gregorianDate.getFullYear() - 578;
+    const hijriMonths = [
+      'محرم', 'صفر', 'ربيع الأول', 'ربيع الثاني', 'جمادى الأولى', 'جمادى الثانية',
+      'رجب', 'شعبان', 'رمضان', 'شوال', 'ذو القعدة', 'ذو الحجة'
+    ];
+    const hijriMonth = hijriMonths[gregorianDate.getMonth()];
+    const hijriDay = gregorianDate.getDate();
+    
+    return `${hijriDay} ${hijriMonth} ${hijriYear} هـ`;
+  };
+
   const nextFriday = getNextFriday();
   
   const examEvents: ExamEvent[] = [
@@ -110,12 +124,18 @@ export const ExamSchedule: React.FC = () => {
   }, []);
 
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString('ar-SA', {
+    const gregorianDate = date.toLocaleDateString('ar-SA', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     });
+    const hijriDate = toHijriDate(date);
+    
+    return {
+      gregorian: gregorianDate,
+      hijri: hijriDate
+    };
   };
 
   const getUrgencyClass = (eventId: number) => {
@@ -171,7 +191,10 @@ export const ExamSchedule: React.FC = () => {
                         </div>
                         <div>
                           <h3 className="text-2xl font-bold">{event.title}</h3>
-                          <p className="text-white/90">{event.day} - {formatDate(event.date)}</p>
+                          <div className="text-white/90">
+                            <p className="mb-1">{event.day} - {formatDate(event.date).gregorian}</p>
+                            <p className="text-sm text-white/70">{formatDate(event.date).hijri}</p>
+                          </div>
                         </div>
                       </div>
                       <div className="text-center">

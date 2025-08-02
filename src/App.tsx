@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Header } from './components/Header';
 import { MainPage } from './components/MainPage';
 import { Navigation } from './components/Navigation';
@@ -17,8 +17,17 @@ function App() {
   const [searchResult, setSearchResult] = useState<Student | null>(null);
   const [searchAttempted, setSearchAttempted] = useState(false);
   const [currentPage, setCurrentPage] = useState<'main' | 'results' | 'schedule'>('main');
+  const audioRef = useRef<HTMLAudioElement>(null);
   
   const stats = calculateStats(rankedStudents);
+
+  // Stop audio when leaving main page
+  useEffect(() => {
+    if (currentPage !== 'main' && audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+  }, [currentPage]);
 
   const handleSearchResult = (student: Student | null) => {
     setSearchResult(student);
@@ -31,6 +40,13 @@ function App() {
 
   const handleFullNavigation = (page: 'main' | 'results' | 'schedule') => {
     setCurrentPage(page);
+    
+    // Stop audio when navigating away from main page
+    if (page !== 'main' && audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+    
     // Scroll to top when navigating
     window.scrollTo({ top: 0, behavior: 'smooth' });
     // Reset search when navigating
@@ -42,6 +58,9 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50" dir="rtl">
+      {/* Global audio reference for main page */}
+      <audio ref={audioRef} style={{ display: 'none' }} />
+      
       {currentPage === 'main' ? (
         <MainPage onNavigate={(page) => handleFullNavigation(page)} />
       ) : (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BookOpen, Star, Sparkles, Calendar, Trophy, Users, ArrowLeft, Fuel as Mosque } from 'lucide-react';
 
 interface MainPageProps {
@@ -6,8 +6,45 @@ interface MainPageProps {
 }
 
 export const MainPage: React.FC<MainPageProps> = ({ onNavigate }) => {
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    // Try to play the audio when component mounts
+    const playAudio = async () => {
+      if (audioRef.current) {
+        try {
+          await audioRef.current.play();
+        } catch (error) {
+          console.log('Audio autoplay prevented by browser');
+        }
+      }
+    };
+
+    playAudio();
+
+    // Cleanup function to pause audio when component unmounts
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 relative overflow-hidden">
+      {/* Background Audio */}
+      <audio
+        ref={audioRef}
+        loop
+        preload="auto"
+        style={{ display: 'none' }}
+      >
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav" />
+        <source src="https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-one/zapsplat_multimedia_alert_chime_warm_wooden_001_44421.mp3" type="audio/mpeg" />
+        {/* Fallback for browsers that don't support the audio element */}
+      </audio>
+
       {/* Background animated elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Floating Quran books */}
@@ -73,6 +110,10 @@ export const MainPage: React.FC<MainPageProps> = ({ onNavigate }) => {
           <h2 className="text-3xl md:text-5xl font-bold text-yellow-300 mb-4 animate-slideInUp gradient-text-golden">
             بدء مسابقة المولد النبوي الشريف
           </h2>
+          
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 animate-slideInUp glowing-text" style={{ animationDelay: '0.2s' }}>
+            مسابقه المولد النبوي الشريف بالجامع الشرقي
+          </h3>
           
           <div className="flex justify-center items-center gap-3 mb-6 animate-fadeInScale">
             <div className="w-8 h-0.5 bg-gradient-to-r from-transparent to-yellow-300"></div>
@@ -185,6 +226,24 @@ export const MainPage: React.FC<MainPageProps> = ({ onNavigate }) => {
                 </svg>
                 <a href="tel:+01559181558" className="text-blue-100 hover:text-white transition-colors font-semibold">
                   +0155 918 1558
+                </a>
+              </div>
+              
+              <div className="flex items-center justify-center gap-3 bg-white/5 rounded-2xl p-4 hover-glow">
+                <svg className="w-6 h-6 text-green-300" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                </svg>
+                <a href="tel:+201205362040" className="text-blue-100 hover:text-white transition-colors font-semibold">
+                  +2012 053 6204
+                </a>
+              </div>
+              
+              <div className="flex items-center justify-center gap-3 bg-white/5 rounded-2xl p-4 hover-glow">
+                <svg className="w-6 h-6 text-green-300" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                </svg>
+                <a href="tel:+201276099675" className="text-blue-100 hover:text-white transition-colors font-semibold">
+                  +2012 7609 9675
                 </a>
               </div>
             </div>
