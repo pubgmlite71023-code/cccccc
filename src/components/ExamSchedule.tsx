@@ -59,10 +59,10 @@ export const ExamSchedule: React.FC = () => {
       id: 1,
       date: nextFriday,
       day: 'الجمعة',
-      title: 'تسميع حفظ ثلاثة أجزاء',
+      title: 'اختبار حفظ ثلاثة أجزاء',
       description: 'اختبار تسميع للطلاب الذين حفظوا ثلاثة أجزاء من القرآن الكريم',
-      parts: ['الجزء الأول', 'الجزء الثاني', 'الجزء الثالث'],
-      category: 'تسميع',
+      parts: ['ثلاثة أجزاء'],
+      category: 'اختبار',
       color: 'from-green-500 to-emerald-600'
     },
     {
