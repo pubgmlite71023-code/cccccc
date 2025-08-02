@@ -158,7 +158,7 @@ export const MainPage: React.FC<MainPageProps> = ({ onNavigate }) => {
               <div className="bg-white/5 rounded-2xl p-4 border border-white/10">
                 <Star className="w-8 h-8 text-purple-300 mx-auto mb-3" />
                 <h4 className="text-white font-semibold mb-2">تقييم عادل</h4>
-                <p className="text-blue-200 text-sm">من لجنة محكمين متخصصة</p>
+                <p className="text-blue-200 text-sm">من لجنة محكمين خارج القرية</p>
               </div>
             </div>
           </div>
@@ -224,7 +224,7 @@ export const MainPage: React.FC<MainPageProps> = ({ onNavigate }) => {
                   <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
                 </svg>
                 <a href="tel:+01559181558" className="text-blue-100 hover:text-white transition-colors font-semibold">
-                  +0155 918 1558
+                  +20 155 918 1558
                 </a>
               </div>
               
@@ -233,7 +233,7 @@ export const MainPage: React.FC<MainPageProps> = ({ onNavigate }) => {
                   <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
                 </svg>
                 <a href="tel:+201205362040" className="text-blue-100 hover:text-white transition-colors font-semibold">
-                  +2012 053 6204
+                  +20 122 053 6204
                 </a>
               </div>
               
@@ -242,7 +242,7 @@ export const MainPage: React.FC<MainPageProps> = ({ onNavigate }) => {
                   <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
                 </svg>
                 <a href="tel:+201276099675" className="text-blue-100 hover:text-white transition-colors font-semibold">
-                  +2012 7609 9675
+                  +20 127 609 9675
                 </a>
               </div>
             </div>
